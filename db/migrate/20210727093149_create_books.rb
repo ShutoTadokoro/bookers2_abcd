@@ -4,6 +4,9 @@ class CreateBooks < ActiveRecord::Migration[6.1]
       t.string :title
       t.text :body
       t.integer :user_id
+      t.integer :good # いいねカウント用
+      t.integer :star #星順
+      t.string :tag #タグ、複数登録はなし
       t.timestamps
     end
   end

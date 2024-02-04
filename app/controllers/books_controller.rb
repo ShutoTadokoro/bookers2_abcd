@@ -5,11 +5,23 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+    
+    # unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+    #   current_user.view_counts.create(book_id: @book.id)
+    # end
+
   end
 
   def index
-    @books = Book.all
     @book = Book.new
+    order = params[:order]
+    if order == "date"
+      @books = Book.order(created_at: :desc)
+    elsif order == "star"
+      @books = Book.order(star: :desc)
+    else
+      @books = Book.all
+    end
   end
 
   def create
@@ -42,7 +54,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :tag, :star)
   end
 
   def ensure_correct_user
