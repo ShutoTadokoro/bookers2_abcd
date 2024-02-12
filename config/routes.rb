@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   	get "search", to: "users#search"
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/tags_result' => 'tags#result'
   get '/search', to: 'searches#search'
   
   resources :groups, only:  [:new, :index, :show, :create, :edit, :update] do

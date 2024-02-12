@@ -15,6 +15,14 @@ class BooksController < ApplicationController
   def index
     @books = Book.order(star: :desc)
     @book = Book.new
+    order = params[:order]
+    if order == "date"
+      @books = Book.order(created_at: :desc)
+    elsif order == "star"
+      @books = Book.order(star: :desc)
+    else
+      @books = Book.all
+    end
   end
 
   def create
@@ -47,7 +55,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :tag, :star)
   end
 
   def ensure_correct_user

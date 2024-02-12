@@ -1,5 +1,9 @@
 <div class='container px-5 px-sm-0'>
   <%= render 'layouts/errors', obj: @book %>
+  <%= form_with url: tags_result_path, method: :get, local: :true do |f| %>
+    <%= f.text_field :tag %>
+    <%= f.submit "タグ検索" %>
+  <% end %>
   <div class='row'>
     <div class='col-md-3'>
       <h2>User info</h2>
@@ -9,9 +13,9 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
-      <div class="book-index">
-        <%= render 'books/index', books: @books %>
-      </div>
+      <%= link_to "新しい順", books_path(order: "date") %>
+      <%= link_to "評価順", books_path(order: "star") %>
+      <%= render 'index', books: @books%>
     </div>
   </div>
 </div>
